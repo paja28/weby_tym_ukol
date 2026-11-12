@@ -1,0 +1,19 @@
+.swiper {
+  width: 50vh;
+  height: 50vh;
+}
+
+#slide1 {
+  background-image: url("G:\\WEB\\04\\41.png");
+  background-size: cover;
+}
+
+#slide2 {
+  background-image: url("G:\\WEB\\04\\42.png");
+  background-size: cover;
+}
+
+#slide3 {
+  background-image: url("G:\\WEB\\04\\43.png");
+  background-size: cover;
+}
