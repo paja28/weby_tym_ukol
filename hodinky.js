@@ -1,41 +1,57 @@
-var sekundy_el = document.querySelector("#sekundy");
-var minuty_el = document.querySelector("#minuty");
-var hodiny_el = document.querySelector("#hodiny");
-const akt_cas = new Date();
-var sekundy = akt_cas.getSeconds();
-var minuty = akt_cas.getMinutes();
-var hodiny = akt_cas.getHours();
-sekundy_el.innerHTML=sekundy;
-minuty_el.innerHTML = minuty;
-hodiny_el.innerHTML=hodiny;
-//Hodiny zobrazují aktuální čas + uložený posun (viz bod 3). Nemám
-setInterval(function () {
+const sekundy_el = document.querySelector("#sekundy");
+const minuty_el = document.querySelector("#minuty");
+const hodiny_el = document.querySelector("#hodiny");
+const datum_el = document.querySelector("#datum");
 
-    sekundy++;
-    sekundy_el.innerHTML=sekundy <10 ? '0'+sekundy:sekundy;
-    if(sekundy >=59){
-        sekundy = 0;
-        minuty++;
-        minuty_el.innerHTML = minuty <10? '0'+minuty:minuty;
-        if(minuty >=59)
-        {
-            minuty=0;
-            hodiny++;
-            hodiny_el.innerHTML=hodiny<10? '0'+hodiny:hodiny;
-            if(hodiny>=23)
-                hodiny=0;
-        }
-    }
-}, 1000)
 
-var datum_el = document.querySelector("#datum");
-switch(akt_cas.getDay){
-    case 1:datum_el.innerHTML="Pondělí ";break;
-    case 2:datum_el.innerHTML="Úterý ";break;
-    case 3:datum_el.innerHTML="Středa ";break;
-    case 4:datum_el.innerHTML="Čtvrtek ";break;
-    case 5:datum_el.innerHTML="Pátek ";break;
-    case 6:datum_el.innerHTML="Sobota ";break;
-    case 7:datum_el.innerHTML="Neděle ";break;
-    default:datum_el.innerHTML="Nerozpoznano";
+const panelNastaveni = document.querySelector("#nastaveni-panel");
+const btnToggle = document.querySelector("#toggle-nastaveni");
+const tlacitkoPosun = document.querySelector("#tlac_posun");
+const inputPosun = document.querySelector("#posun");
+const alertBox = document.querySelector("#vlastni-alert");
+
+let ulozenyPosunVMinutach = 0;
+
+function aktualizujCas() {
+
+    const akt_cas = new Date();
+    
+    akt_cas.setMinutes(akt_cas.getMinutes() + ulozenyPosunVMinutach);
+
+    let h = akt_cas.getHours();
+    let m = akt_cas.getMinutes();
+    let s = akt_cas.getSeconds();
+
+    hodiny_el.innerHTML = h < 10 ? '0' + h : h;
+    minuty_el.innerHTML = m < 10 ? '0' + m : m;
+    sekundy_el.innerHTML = s < 10 ? '0' + s : s;
+
+
+    const volby = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    datum_el.innerHTML = akt_cas.toLocaleDateString('cs-CZ', volby);
 }
+
+aktualizujCas();
+setInterval(aktualizujCas, 1000);
+
+btnToggle.addEventListener("click", () => {
+    panelNastaveni.classList.toggle("skryty");
+});
+
+
+tlacitkoPosun.addEventListener("click", () => {
+    ulozenyPosunVMinutach = parseInt(inputPosun.value) || 0;
+    
+
+    aktualizujCas();
+
+
+    const znamenko = ulozenyPosunVMinutach > 0 ? '+' : '';
+    alertBox.innerHTML = `Nastavení uloženo: ${znamenko}${ulozenyPosunVMinutach} min`;
+
+    alertBox.classList.add("zobrazit");
+
+    setTimeout(() => {
+        alertBox.classList.remove("zobrazit");
+    }, 2500);
+});
