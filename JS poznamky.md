@@ -1,1 +1,12 @@
-#JavaScript
+# JavaScript
+- univerzální programovací jazyk
+- vytvořen jako jazyk pro jednodussi interaktivnost webu
+- interpretovaný jazyk = preklada po radcich az za behu. Pod kapotou ve skutecnosti bezi just-in-time kompilace
+- globální a lokální scope
+- neni nutne pouzivat středníky
+- dynamicky typovaný = sam si urcuje datovy typ podle hodnoty
+- nested funkce (nechapu)
+- asynchronní => dokáže dělat více věcí zároveň, celý program se nezasekne treba v setTimeout
+- PROMISE - objekt, ktery reprezentuje budouci vysledek asynchronní operace
+- RESOLVE - vpodsatte return, ktery dokaze zmenit stav promise
+- AWAIT zajisti, ze se ceka na vysledek promise
