@@ -1,0 +1,19 @@
+.swiper {
+  width: 50vh;
+  height: 50vh;
+}
+
+#slide1 {
+  background-image: url("petr.png");
+  background-size: cover;
+}
+
+#slide2 {
+  background-image: url("pavel.png");
+  background-size: cover;
+}
+
+#slide3 {
+  background-image: url("oliver.png");
+  background-size: cover;
+}
